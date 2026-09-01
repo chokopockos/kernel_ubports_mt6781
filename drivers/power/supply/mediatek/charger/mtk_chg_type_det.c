@@ -742,6 +742,13 @@ static int mt_usb_get_property(struct power_supply *psy,
 		break;
 	case POWER_SUPPLY_PROP_CP_VENDOR:
 		cp_psy = power_supply_get_by_name("bq2597x-standalone");
+		if (!cp_psy) {
+			/* No charge-pump chip on this board (e.g. fleur) -
+			 * this is expected, not an error. Report "no CP".
+			 */
+			val->intval = 0;
+			break;
+		}
 		ret = power_supply_get_property(cp_psy,
 			POWER_SUPPLY_PROP_CP_VENDOR_ID, &cp_val);
 		if (ret) {
