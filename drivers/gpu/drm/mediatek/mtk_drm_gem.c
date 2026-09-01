@@ -184,6 +184,11 @@ struct mtk_drm_gem_obj *mtk_drm_fb_gem_insert(struct drm_device *dev,
 	unsigned long fb_pa = 0;
 
 	DDPINFO("%s+\n", __func__);
+	if (!fb_base || !vramsize) {
+		DDPPR_ERR("%s: invalid fb_base=0x%llx vramsize=%u, skip\n",
+			  __func__, (u64)fb_base, vramsize);
+		return ERR_PTR(-EINVAL);
+	}
 	mtk_gem = mtk_drm_gem_init(dev, vramsize);
 	if (IS_ERR(mtk_gem))
 		return ERR_CAST(mtk_gem);
