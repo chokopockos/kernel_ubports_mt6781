@@ -373,6 +373,7 @@ int _parse_tag_videolfb(unsigned int *vramsize, phys_addr_t *fb_base,
 
 		DDPINFO("[DT][videolfb] videolfb_tag not found\n");
 		goto found;
+		return -1;
 	} else {
 		DDPINFO("[DT][videolfb] of_chosen not found\n");
 	}
